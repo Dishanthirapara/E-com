@@ -1,39 +1,29 @@
-from django.urls import path
-from seller import views
+"""
+URL configuration for E-Commerce project.
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.urls import include, path
+    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+"""
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    path('', views.register),
-    path('otp_verification/', views.otp_verification),
-    path('login/', views.login),
-    path('profile/', views.profile),
-    path('update_profile/', views.update_profile),
-    path('add_product/', views.add_product),
-    path('bulk_upload_catalog/', views.bulk_upload_catalog),
-    path('get_image_link/', views.get_image_link),
-    path('upload_catalog_file/', views.upload_catalog_file),
-    path('view_all_product/', views.view_all_product),
-    path('update_product/', views.update_product),
-    path('delete_product/', views.delete_product),
-    path('inventory/', views.inventory),
-    path('edit_stock/', views.edit_stock),
-    path('inventory_filter_category/', views.inventory_filter_category),
-    path('inventory_edit_catalog/', views.inventory_edit_catalog),
-    path('view_rating/', views.view_rating),
-    path('pending_order/', views.pending_order),
-    path('filter_order_date/', views.filter_order_date),
-    path('filter_dispatch_date/', views.filter_dispatch_date),
-    path('order_search/', views.order_search),
-    path('order_accept/', views.order_accept),
-    path('ready_to_ship/', views.ready_to_ship),
-    path('shipping_label/', views.shipping_label),
-    path('cancel_order/', views.cancel_order),
-    path('cancelled/', views.cancelled),
-    path('pricing/', views.pricing),
-    path('edit_pricing/', views.edit_pricing),
-    path('filter_category/', views.filter_category),
-    path('date_growth/', views.date_growth),
-    path('return_tracking/', views.return_tracking),
-    path('return_overview/', views.return_overview),
-    path('return_filter_category/', views.return_filter_category),
-    path('return_filter_date/', views.return_filter_date),
+    path('admin/', admin.site.urls),
+    path('', include('base.urls')),
+    path('seller/', include('seller.urls')),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
